@@ -1,7 +1,7 @@
 package pl.panczak.wiktor.boxhead.server.threads;
 
 import org.json.JSONObject;
-import pl.panczak.wiktor.boxhead.server.Launcher;
+import pl.panczak.wiktor.boxhead.server.Server;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -14,11 +14,11 @@ public class SendThread extends Thread{
     public void run(){
         long nextRun = 0;
         boolean remove = false;
-        while (Launcher.running){
+        while (Server.running){
             if (System.currentTimeMillis() - nextRun >= 0){
-                nextRun = System.currentTimeMillis() + 1000 / Launcher.sendRate;
+                nextRun = System.currentTimeMillis() + 1000 / Server.sendRate;
 
-                for(DataOutputStream output: Launcher.acceptThread.outputs){
+                for(DataOutputStream output: Server.acceptThread.outputs){
                     try {
                         output.writeUTF(update.toString());
                     } catch (IOException e) {
@@ -29,7 +29,7 @@ public class SendThread extends Thread{
                 update = new JSONObject();
                 if(remove) {
                     for (DataOutputStream output : toBeRemoved) {
-                        Launcher.acceptThread.outputs.remove(output);
+                        Server.acceptThread.outputs.remove(output);
                     }
                     toBeRemoved.clear();
                     remove = false;

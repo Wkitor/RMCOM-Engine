@@ -1,14 +1,13 @@
 package pl.panczak.wiktor.boxhead.threads;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-import pl.panczak.wiktor.boxhead.Launcher;
+import pl.panczak.wiktor.boxhead.Client;
 import pl.panczak.wiktor.boxhead.window.Display;
 import pl.panczak.wiktor.boxhead.window.KeyManager;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-public class DrawThread implements Runnable {
+public abstract class DrawThread implements Runnable {
     private Display display;
     private final KeyManager keyManager;
     private final JSONObject world;
@@ -45,7 +44,7 @@ public class DrawThread implements Runnable {
     }
 
     private void tick(){
-        addJSON(world, Launcher.partialUpdate);
+        addJSON(world, Client.partialUpdate);
     }
 
     private void render(){
@@ -58,17 +57,7 @@ public class DrawThread implements Runnable {
 
         // start draw
 
-        graphics.clearRect(0, 0, width, height);
-
-        graphics.setColor(Color.RED);
-
-        if(world.has("players")) {
-            JSONObject players = world.getJSONObject("players");
-
-            for (String key : players.keySet()) {
-                graphics.fillOval((int) players.getJSONObject(key).getDouble("x"), (int) players.getJSONObject(key).getDouble("y"), 50, 50);
-            }
-        }
+        draw(graphics);
 
         // end draw
 
@@ -76,13 +65,15 @@ public class DrawThread implements Runnable {
         graphics.dispose();
     }
 
+    public abstract void draw(Graphics graphics);
+
     public void run(){
         init();
 
         long nextRun = 0;
         while (running){
             if (System.currentTimeMillis() - nextRun >= 0){
-                nextRun = System.currentTimeMillis() + 1000 / Launcher.frameRate;
+                nextRun = System.currentTimeMillis() + 1000 / Client.frameRate;
 
                 render();
                 tick();

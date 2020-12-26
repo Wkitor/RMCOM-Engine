@@ -1,6 +1,6 @@
 package pl.panczak.wiktor.boxhead.server.threads;
 
-import pl.panczak.wiktor.boxhead.server.Launcher;
+import pl.panczak.wiktor.boxhead.server.Server;
 import java.net.Socket;
 import java.io.*;
 
@@ -17,7 +17,7 @@ public class ReceiveThread extends Thread{
         try {
             input = new DataInputStream(socket.getInputStream());
         }catch (Exception e){
-            Launcher.running = false;
+            Server.running = false;
             e.printStackTrace();
         }
     }
@@ -44,16 +44,16 @@ public class ReceiveThread extends Thread{
     }
 
     public void run(){
-        id = Launcher.worldLogic.connect();
+        id = Server.worldLogic.connect();
 
         try {
-            while (Launcher.running) {
+            while (Server.running) {
                 String data = input.readUTF();
                 updateKeys(data);
             }
         }catch (IOException e){
-            Launcher.acceptThread.receiveThreads.remove(this);
-            Launcher.worldLogic.disconnect(id);
+            Server.acceptThread.receiveThreads.remove(this);
+            Server.worldLogic.disconnect(id);
             System.out.println("client disconnected");
         }
     }

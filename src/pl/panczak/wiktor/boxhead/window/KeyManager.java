@@ -1,6 +1,6 @@
 package pl.panczak.wiktor.boxhead.window;
 
-import pl.panczak.wiktor.boxhead.Launcher;
+import pl.panczak.wiktor.boxhead.Client;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -23,14 +23,14 @@ public class KeyManager implements KeyListener {
     public void keyPressed(KeyEvent e) {
         keys[e.getKeyCode()] = true;
         update();
-        Launcher.sender.sendUpdate(w, s, a, d);
+        Client.sender.sendUpdate(w, s, a, d);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         keys[e.getKeyCode()] = false;
         update();
-        Launcher.sender.sendUpdate(w, s, a, d);
+        Client.sender.sendUpdate(w, s, a, d);
     }
 
     @Override

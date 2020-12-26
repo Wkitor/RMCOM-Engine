@@ -1,6 +1,6 @@
 package pl.panczak.wiktor.boxhead.server.threads;
 
-import pl.panczak.wiktor.boxhead.server.Launcher;
+import pl.panczak.wiktor.boxhead.server.Server;
 import java.net.*;
 import java.util.LinkedList;
 import java.io.DataOutputStream;
@@ -12,18 +12,18 @@ public class AcceptThread extends Thread{
     public void run(){
         try{
             ServerSocket server = new ServerSocket(6432);
-            while(Launcher.running){
+            while(Server.running){
                 Socket socket = server.accept();
                 System.out.println("new client connected!");
                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
                 outputs.add(output);
-                output.writeUTF(Launcher.world.toString());
+                output.writeUTF(Server.world.toString());
                 ReceiveThread receiveThread = new ReceiveThread(socket);
                 receiveThreads.add(receiveThread);
                 receiveThread.start();
             }
         }catch (Exception e){
-            Launcher.running = false;
+            Server.running = false;
             e.printStackTrace();
         }
     }

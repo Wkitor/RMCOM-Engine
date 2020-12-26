@@ -6,7 +6,7 @@ import pl.panczak.wiktor.boxhead.server.threads.TickThread;
 import org.json.JSONObject;
 import pl.panczak.wiktor.boxhead.server.world.WorldLogic;
 
-public class Launcher {
+public class Server {
     public static int tickRate = 64;
     public static int sendRate = 20;
 
@@ -17,30 +17,19 @@ public class Launcher {
     public static JSONObject world;
     public static WorldLogic worldLogic;
 
-    public static void main(String[] args){
-        start();
-    }
-
-    public static void start(){
+    public static void start(WorldLogic gameLogic){
         if(!running){
             running = true;
 
             acceptThread = new AcceptThread();
             sendThread = new SendThread();
             world = new JSONObject();
-            worldLogic = new WorldLogic(world, acceptThread.receiveThreads);
+            worldLogic = gameLogic;
             tickThread = new TickThread(worldLogic);
 
             acceptThread.start();
             sendThread.start();
             tickThread.start();
-        }
-    }
-
-    public static void stop() throws InterruptedException{
-        if(running){
-            running = false;
-            acceptThread.join();
         }
     }
 }

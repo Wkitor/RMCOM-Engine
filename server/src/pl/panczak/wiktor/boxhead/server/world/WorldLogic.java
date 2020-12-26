@@ -1,23 +1,26 @@
 package pl.panczak.wiktor.boxhead.server.world;
 
 import org.json.JSONObject;
-import pl.panczak.wiktor.boxhead.server.Launcher;
+import pl.panczak.wiktor.boxhead.server.Server;
 import pl.panczak.wiktor.boxhead.server.threads.ReceiveThread;
 import java.util.LinkedList;
 
-public class WorldLogic {
-    private final JSONObject world;
+public abstract class WorldLogic {
+    private JSONObject world;
     private volatile LinkedList<ReceiveThread> receiveThreads;
     private int idCounter;
 
-    public WorldLogic(JSONObject world, LinkedList<ReceiveThread> receiveThreads){
+    public void setWorld(JSONObject world){
         this.world = world;
+    }
+
+    public void setReceiveThreads(LinkedList<ReceiveThread> receiveThreads){
         this.receiveThreads = receiveThreads;
     }
 
     private void update(Object value, String... path){
         JSONObject object = world;
-        JSONObject update = Launcher.sendThread.update;
+        JSONObject update = Server.sendThread.update;
 
         int i;
         for(i = 0; i < path.length - 1; i++){
@@ -37,7 +40,6 @@ public class WorldLogic {
         }
 
         if(sendUpdate){
-            i = 0;
             for(i = 0; i < path.length - 1; i++){
                 if(!update.has(path[i])){
                     update.put(path[i], new JSONObject());
@@ -51,7 +53,7 @@ public class WorldLogic {
 
     private void delete(String... path){
         JSONObject object = world;
-        JSONObject update = Launcher.sendThread.update;
+        JSONObject update = Server.sendThread.update;
 
         int i;
         for(i = 0; i < path.length - 1; i++){
@@ -85,51 +87,9 @@ public class WorldLogic {
         return idCounter++;
     }
 
-    // --- game code ---
+    public abstract void tick(long tickNumber, double dt);
 
-    private static final int pixelsPerSecond = 100;
+    public abstract int connect();
 
-    public void tick(long tickNumber, double dt){
-        update((int) (1 / dt), "tps");
-
-        double pixels = pixelsPerSecond * dt;
-        for(ReceiveThread client: receiveThreads){
-            double dx = 0;
-            double dy = 0;
-            if(client.up){
-                dy -= pixels;
-            }
-            if(client.down){
-                dy += pixels;
-            }
-            if(client.right){
-                dx += pixels;
-            }
-            if(client.left){
-                dx -= pixels;
-            }
-
-            double newX = (Double) get("players", String.valueOf(client.id), "x") + dx;
-            double newY = (Double) get("players", String.valueOf(client.id), "y") + dy;
-
-            update(newX, "players", String.valueOf(client.id), "x");
-            update(newY, "players", String.valueOf(client.id), "y");
-        }
-    }
-
-    public synchronized int connect(){
-        int id = nextId();
-
-        update(100.0, "players", String.valueOf(id), "x");
-        update(100.0, "players", String.valueOf(id), "y");
-
-        update(true, "players", String.valueOf(id), "x_int");
-        update(true, "players", String.valueOf(id), "y_int");
-
-        return id;
-    }
-
-    public synchronized void disconnect(int id){
-        delete("players", String.valueOf(id));
-    }
+    public abstract void disconnect(int id);
 }

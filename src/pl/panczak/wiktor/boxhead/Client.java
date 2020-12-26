@@ -5,7 +5,7 @@ import pl.panczak.wiktor.boxhead.threads.*;
 import java.io.*;
 import java.net.Socket;
 
-public class Launcher {
+public class Client {
     public static final int frameRate = 60;
 
     public static DrawThread drawThread;
@@ -15,10 +15,10 @@ public class Launcher {
     public static JSONObject world;
     public static JSONObject partialUpdate;
 
-    public static void main(String[] args){
+    public static void start(DrawThread gameDrawThread){
         world = new JSONObject();
         partialUpdate = new JSONObject();
-        drawThread = new DrawThread("RED MOVING CIRCLES ONLINE MULTIPLAYER!!!", 640, 480, world);
+        drawThread = gameDrawThread;
         drawThread.start();
 
         try {

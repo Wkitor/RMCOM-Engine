@@ -1,7 +1,7 @@
 package pl.panczak.wiktor.boxhead.threads;
 
 import org.json.JSONException;
-import pl.panczak.wiktor.boxhead.Launcher;
+import pl.panczak.wiktor.boxhead.Client;
 import org.json.JSONObject;
 import java.io.DataInputStream;
 import java.math.BigDecimal;
@@ -26,7 +26,7 @@ public class ReceiveThread extends Thread{
             JSONObject update = new JSONObject(data);
             updateJSON(world, update);
 
-            while (Launcher.drawThread.running) {
+            while (Client.drawThread.running) {
                 lastReceived = System.currentTimeMillis();
 
                 data = input.readUTF();
@@ -42,8 +42,8 @@ public class ReceiveThread extends Thread{
     }
 
     private void createPartialUpdate(JSONObject update){
-        Launcher.partialUpdate = new JSONObject();
-        diffDivJSON(Launcher.partialUpdate, update, world);
+        Client.partialUpdate = new JSONObject();
+        diffDivJSON(Client.partialUpdate, update, world);
     }
 
     private boolean diffDivJSON(JSONObject object, JSONObject update, JSONObject world){
@@ -51,7 +51,7 @@ public class ReceiveThread extends Thread{
         for(String key: update.keySet()){
             if((update.get(key).getClass() == Integer.class || update.get(key).getClass() == BigDecimal.class) && world.has(key + "_int")){
                 if(world.getBoolean(key + "_int")) {
-                    object.put(key, (update.getDouble(key) - world.getDouble(key)) / ((double) receivePeriod / 1000 * Launcher.frameRate));
+                    object.put(key, (update.getDouble(key) - world.getDouble(key)) / ((double) receivePeriod / 1000 * Client.frameRate));
                     changed = true;
                 }
             }else if(update.get(key).getClass() == JSONObject.class){

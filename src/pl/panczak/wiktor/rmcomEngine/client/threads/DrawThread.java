@@ -1,9 +1,9 @@
-package pl.panczak.wiktor.rmcomEngine.threads;
+package pl.panczak.wiktor.rmcomEngine.client.threads;
 
 import org.json.JSONObject;
-import pl.panczak.wiktor.rmcomEngine.Client;
-import pl.panczak.wiktor.rmcomEngine.window.Display;
-import pl.panczak.wiktor.rmcomEngine.window.KeyManager;
+import pl.panczak.wiktor.rmcomEngine.client.Client;
+import pl.panczak.wiktor.rmcomEngine.client.window.Display;
+import pl.panczak.wiktor.rmcomEngine.client.window.KeyManager;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 

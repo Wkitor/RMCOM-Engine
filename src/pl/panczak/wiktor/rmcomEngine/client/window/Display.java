@@ -1,4 +1,4 @@
-package pl.panczak.wiktor.rmcomEngine.window;
+package pl.panczak.wiktor.rmcomEngine.client.window;
 
 import javax.swing.*;
 import java.awt.*;

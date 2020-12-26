@@ -1,7 +1,7 @@
-package pl.panczak.wiktor.rmcomEngine;
+package pl.panczak.wiktor.rmcomEngine.client;
 
 import org.json.JSONObject;
-import pl.panczak.wiktor.rmcomEngine.threads.*;
+import pl.panczak.wiktor.rmcomEngine.client.threads.*;
 import java.io.*;
 import java.net.Socket;
 

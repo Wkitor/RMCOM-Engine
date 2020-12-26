@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public abstract class WorldLogic {
     private JSONObject world;
-    private volatile LinkedList<ReceiveThread> receiveThreads;
+    public volatile LinkedList<ReceiveThread> receiveThreads;
     private int idCounter;
 
     public void setWorld(JSONObject world){
@@ -19,7 +19,7 @@ public abstract class WorldLogic {
         this.receiveThreads = receiveThreads;
     }
 
-    private void update(Object value, String... path){
+    public void update(Object value, String... path){
         JSONObject object = world;
         JSONObject update = Server.sendThread.update;
 
@@ -52,7 +52,7 @@ public abstract class WorldLogic {
         }
     }
 
-    private void delete(String... path){
+    public void delete(String... path){
         JSONObject object = world;
         JSONObject update = Server.sendThread.update;
 
@@ -73,7 +73,7 @@ public abstract class WorldLogic {
         update.put(path[i], JSONObject.NULL);
     }
 
-    private Object get(String... path){
+    public Object get(String... path){
         JSONObject object = world;
 
         int i;
@@ -84,7 +84,7 @@ public abstract class WorldLogic {
         return object.get(path[i]);
     }
 
-    private int nextId(){
+    public int nextId(){
         return idCounter++;
     }
 

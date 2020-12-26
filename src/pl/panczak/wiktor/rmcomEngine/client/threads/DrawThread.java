@@ -12,13 +12,10 @@ public abstract class DrawThread implements Runnable {
     private final KeyManager keyManager;
     private JSONObject world;
 
-    private Thread thread;
     public volatile boolean running = false;
 
     public final int width, height;
     public final String title;
-
-    private int interpolationCounter;
 
     public DrawThread(String title, int width, int height){
         this.title = title;
@@ -85,23 +82,7 @@ public abstract class DrawThread implements Runnable {
     }
 
     public synchronized void start(){
-        if(running){
-            return;
-        }
-        running = true;
-        thread = new Thread(this);
+        Thread thread = new Thread(this);
         thread.start();
-    }
-
-    public synchronized void stop(){
-        if(!running){
-            return;
-        }
-        try{
-            running = false;
-            thread.join();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 }

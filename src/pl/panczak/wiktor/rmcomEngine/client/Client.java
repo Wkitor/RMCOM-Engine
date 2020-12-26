@@ -19,6 +19,7 @@ public class Client {
         world = new JSONObject();
         partialUpdate = new JSONObject();
         drawThread = gameDrawThread;
+        drawThread.setWorld(world);
         drawThread.start();
 
         try {

@@ -10,7 +10,7 @@ import java.awt.image.BufferStrategy;
 public abstract class DrawThread implements Runnable {
     private Display display;
     private final KeyManager keyManager;
-    private final JSONObject world;
+    private JSONObject world;
 
     private Thread thread;
     public volatile boolean running = false;
@@ -20,12 +20,15 @@ public abstract class DrawThread implements Runnable {
 
     private int interpolationCounter;
 
-    public DrawThread(String title, int width, int height, JSONObject world){
+    public DrawThread(String title, int width, int height){
         this.title = title;
         this.width = width;
         this.height = height;
-        this.world = world;
         keyManager = new KeyManager();
+    }
+
+    public void setWorld(JSONObject world){
+        this.world = world;
     }
 
     private void init(){

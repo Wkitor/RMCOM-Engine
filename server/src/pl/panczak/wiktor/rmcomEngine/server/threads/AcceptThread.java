@@ -1,6 +1,6 @@
-package pl.panczak.wiktor.boxhead.server.threads;
+package pl.panczak.wiktor.rmcomEngine.server.threads;
 
-import pl.panczak.wiktor.boxhead.server.Server;
+import pl.panczak.wiktor.rmcomEngine.server.Server;
 import java.net.*;
 import java.util.LinkedList;
 import java.io.DataOutputStream;

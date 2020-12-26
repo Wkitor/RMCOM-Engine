@@ -1,10 +1,10 @@
-package pl.panczak.wiktor.boxhead.server;
+package pl.panczak.wiktor.rmcomEngine.server;
 
-import pl.panczak.wiktor.boxhead.server.threads.AcceptThread;
-import pl.panczak.wiktor.boxhead.server.threads.SendThread;
-import pl.panczak.wiktor.boxhead.server.threads.TickThread;
+import pl.panczak.wiktor.rmcomEngine.server.threads.AcceptThread;
+import pl.panczak.wiktor.rmcomEngine.server.threads.SendThread;
+import pl.panczak.wiktor.rmcomEngine.server.threads.TickThread;
 import org.json.JSONObject;
-import pl.panczak.wiktor.boxhead.server.world.WorldLogic;
+import pl.panczak.wiktor.rmcomEngine.server.world.WorldLogic;
 
 public class Server {
     public static int tickRate = 64;

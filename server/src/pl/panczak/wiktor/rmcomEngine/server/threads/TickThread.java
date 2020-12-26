@@ -1,7 +1,7 @@
-package pl.panczak.wiktor.boxhead.server.threads;
+package pl.panczak.wiktor.rmcomEngine.server.threads;
 
-import pl.panczak.wiktor.boxhead.server.Server;
-import pl.panczak.wiktor.boxhead.server.world.WorldLogic;
+import pl.panczak.wiktor.rmcomEngine.server.Server;
+import pl.panczak.wiktor.rmcomEngine.server.world.WorldLogic;
 
 public class TickThread extends Thread{
     private final WorldLogic worldLogic;

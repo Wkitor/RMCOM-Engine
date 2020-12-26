@@ -1,6 +1,6 @@
-package pl.panczak.wiktor.boxhead.window;
+package pl.panczak.wiktor.rmcomEngine.window;
 
-import pl.panczak.wiktor.boxhead.Client;
+import pl.panczak.wiktor.rmcomEngine.Client;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 

@@ -1,7 +1,7 @@
-package pl.panczak.wiktor.boxhead.threads;
+package pl.panczak.wiktor.rmcomEngine.threads;
 
 import org.json.JSONException;
-import pl.panczak.wiktor.boxhead.Client;
+import pl.panczak.wiktor.rmcomEngine.Client;
 import org.json.JSONObject;
 import java.io.DataInputStream;
 import java.math.BigDecimal;

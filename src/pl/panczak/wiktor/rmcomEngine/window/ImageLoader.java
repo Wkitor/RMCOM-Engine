@@ -1,4 +1,4 @@
-package pl.panczak.wiktor.boxhead.window;
+package pl.panczak.wiktor.rmcomEngine.window;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

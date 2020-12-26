@@ -1,4 +1,4 @@
-package pl.panczak.wiktor.boxhead.threads;
+package pl.panczak.wiktor.rmcomEngine.threads;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
